@@ -1,0 +1,23 @@
+{
+  "name": "ntv-api",
+  "version": "0.0.1",
+  "private": true,
+  "description": "News Trend Visualization API",
+  "author": "Eugen Liebreich",
+  "license": "ISC",
+  "repository": "git+ssh://git@github.com/liebreich/ntv-api.git",
+  "bugs": {
+    "url": "https://github.com/liebreich/ntv-populator/issues"
+  },
+  "homepage": "https://github.com/liebreich/ntv-populator#readme",
+  "main": "app.js",
+  "dependencies": {
+    "mongoose": "^4.5.3",
+    "restify": "^4.0.2",
+    "swagger-restify-mw": "^0.6.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "debug": "DEBUG=swagger*,sway*,body-parser* node app.js"
+  }
+}

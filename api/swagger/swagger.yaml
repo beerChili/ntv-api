@@ -1,0 +1,161 @@
+swagger: "2.0"
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: 0.0.1
+  title: News Trend Visualization API
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+################################################################################
+#                                  Security                                    #
+################################################################################
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: access_token
+
+################################################################################
+#                                   Parameters                                 #
+################################################################################
+parameters:
+  date:
+    name: date
+    in: query
+    required: true
+    type: string
+    format: date
+
+  source:
+    name: source
+    in: query
+    required: true
+    type: string
+    enum:
+      - SPIEGEL
+
+  words:
+    name: words
+    in: body
+    required: true
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Word'
+
+################################################################################
+#                                     Paths                                    #
+################################################################################
+paths:
+  /words:
+    x-swagger-router-controller: words
+    parameters:
+      - $ref: '#/parameters/date'
+      - $ref: '#/parameters/source'
+    get:
+      operationId: getWords
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Words'
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      security:
+        - api_key: []
+      operationId: postWords
+      parameters:
+        - $ref: '#/parameters/words'
+      responses:
+        201:
+          description: Created
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      security:
+        - api_key: []
+      operationId: putWords
+      parameters:
+        - $ref: '#/parameters/words'
+      responses:
+        200:
+          description: OK
+        201:
+          description: Created
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      security:
+        - api_key: []
+      operationId: deleteWords
+      responses:
+        200:
+          description: OK
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Words:
+    type: object
+    properties:
+      date:
+        type: string
+        format: date
+      source:
+        type: string
+        enum:
+          - SPIEGEL
+      words:
+        type: array
+        items:
+          $ref: '#/definitions/Word'
+    required:
+      - date
+      - source
+      - words
+
+  Word:
+    type: object
+    properties:
+      value:
+        type: string
+      count:
+        type: integer
+      occurrenceRefs:
+        type: array
+        items:
+          type: string
+    required:
+      - value
+      - count
+      - occurrenceRefs
+
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
