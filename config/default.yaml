@@ -47,7 +47,7 @@ swagger:
       name: swagger_raw
 
 mongo:
-  host: localhost
+  host: db
   db_name: ntv
 
 api:

@@ -8,7 +8,10 @@ const wordsSchema = new mongoose.Schema({
     words: [{
         value: String,
         count: Number,
-        occurrenceRefs: [String]
+        occurrenceRefs: [{
+          headline: String,
+          url: String
+        }]
     }]
 })
 

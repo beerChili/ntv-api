@@ -42,9 +42,29 @@ function deleteWords(req, res, next) {
         .catch(err => next(err))
 }
 
+function getDateRange(req, res, next) {
+    const source = req.swagger.params.source.value
+
+    Words.find({
+            source: source
+        }, {
+            date: 1
+        }, {
+            sort: {
+                date: 1
+            }
+        })
+        .then(results => res.json({
+            from: results[0],
+            to: results[results.length - 1]
+        }))
+        .catch(err => next(err))
+}
+
 module.exports = {
     getWords,
     postWords,
     putWords,
-    deleteWords
+    deleteWords,
+    getDateRange
 }

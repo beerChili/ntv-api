@@ -1,0 +1,26 @@
+version: '2'
+services:
+  db:
+    image: mongo:latest
+  api:
+    environment:
+      - DEBUG=swagger*
+    build: .
+    command: node app.js
+    volumes:
+      - .:/app
+    ports:
+      - '10010:10010'
+    depends_on:
+      - db
+  populator:
+    build:
+      context: ../ntv-populator/
+    command: tail -f /dev/null
+    environment:
+      - DEBUG=*
+      - TREETAGGER=/usr/local/treetagger/cmd
+    volumes:
+      - .:/popcatulator
+    links:
+      - api

@@ -18,8 +18,8 @@ mongoose.connect(`mongodb://${dbConfig.host}/${dbConfig.db_name}`)
 SwaggerRestify.create(swaggerConfig, (err, swaggerRestify) => {
     if (err) throw err
 
-    swaggerRestify.register(app)
     app.use(restify.gzipResponse())
+    swaggerRestify.register(app)
 
     app.listen(process.env.PORT || apiConfig.default_port)
 })

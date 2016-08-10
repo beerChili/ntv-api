@@ -111,6 +111,29 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /daterange:
+    x-swagger-router-controller: words
+    get:
+      parameters:
+        - $ref: '#/parameters/source'
+      operationId: getDateRange
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              from:
+                type: string
+                format: date
+              to:
+                type: string
+                format: date
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -147,7 +170,12 @@ definitions:
       occurrenceRefs:
         type: array
         items:
-          type: string
+          type: object
+          properties:
+            headline:
+              type: string
+            url:
+              type: string
     required:
       - value
       - count
