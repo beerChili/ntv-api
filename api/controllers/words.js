@@ -1,7 +1,6 @@
 'use strict'
 
-const moment = require('moment'),
-    Words = require('../models/words')
+const Words = require('../models/words')
 
 function getWords(req, res, next) {
     const source = req.swagger.params.source.value,
@@ -45,15 +44,7 @@ function deleteWords(req, res, next) {
 function getDateRange(req, res, next) {
     const source = req.swagger.params.source.value
 
-    Words.find({
-            source: source
-        }, {
-            date: 1
-        }, {
-            sort: {
-                date: 1
-            }
-        })
+    Words.sortByDate(source)
         .then(results => res.json({
             from: results[0],
             to: results[results.length - 1]

@@ -4,13 +4,16 @@ const mongoose = require('mongoose')
 
 const wordsSchema = new mongoose.Schema({
     source: String,
-    date: Date,
+    date: {
+        type: Date,
+        index: true
+    },
     words: [{
         value: String,
         count: Number,
         occurrenceRefs: [{
-          headline: String,
-          url: String
+            headline: String,
+            url: String
         }]
     }]
 })
@@ -51,6 +54,18 @@ wordsSchema.statics.delete = function(source, date) {
     return this.findOneAndRemove({
         source,
         date
+    })
+}
+
+wordsSchema.statics.sortByDate = function(source) {
+    return this.find({
+        source
+    }, {
+        date: 1
+    }, {
+        sort: {
+            date: 1
+        }
     })
 }
 

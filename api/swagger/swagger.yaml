@@ -4,7 +4,7 @@ swagger: "2.0"
 #                              API Information                                 #
 ################################################################################
 info:
-  version: 0.0.1
+  version: 0.0.3
   title: News Trend Visualization API
 basePath: /api
 schemes:
@@ -111,7 +111,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /daterange:
+  /words/daterange:
     x-swagger-router-controller: words
     get:
       parameters:
