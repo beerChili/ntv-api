@@ -15,10 +15,9 @@ services:
       - db
   populator:
     build:
-      context: ../ntv-populator/
+      context: https://github.com/liebreich/ntv-populator.git
     command: tail -f /dev/null
     environment:
-      - DEBUG=*
       - TREETAGGER=/usr/local/treetagger/cmd
     volumes:
       - .:/popcatulator
