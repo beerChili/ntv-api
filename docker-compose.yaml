@@ -15,7 +15,7 @@ services:
       - db
   populator:
     build:
-      context: https://github.com/liebreich/ntv-populator.git
+      context: https://liebreich:08085d4f741cc3061d5860870d435f57f3303221@github.com/liebreich/ntv-populator.git
     command: tail -f /dev/null
     environment:
       - TREETAGGER=/usr/local/treetagger/cmd
